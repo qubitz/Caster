@@ -38,8 +38,9 @@ class JetbrainsRule(MappingRule):
         "%s tab [<n>]|tab %s [<n>]" % (BACK, LEFT): R(Key("a-left/%s" % DELAY)) * Repeat(extra="n"),
         "(comment|rem) [line]": R(Key("c-slash")),
         "(uncomment|unrem) [line]": R(Key("cs-slash")),
-        "select ex" : R(Key("c-w")),
-        "select ex down" : R(Key("cs-w")),
+        "select ex": R(Key("c-w")),
+        "select ex down": R(Key("cs-w")),
+        "select word <n>": R(Key("a-j")) * Repeat(extra="n"),
         "find file": R(Key("shift, shift")),
         "find": R(Key("c-f")),
         "find %s [match] [<n>]" % FORWARD: R(Key("enter")) * Repeat(extra="n"),
@@ -77,7 +78,7 @@ class JetbrainsRule(MappingRule):
 
         # refactoring
         "refactor": R(Key("cas-t")),
-        "rename": R(Key("s-f6")),
+        "rename": R(Key("f2")),
         "inline": R(Key("ca-n")),
         "(pull|extract)": R(Key("ca-m")),
         "%s [variable|var]" % extract: R(Key("ca-v")) * Repeat(extra="n"),
