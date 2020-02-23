@@ -7,7 +7,7 @@ from castervoice.lib.merge.state.short import R
 
 # Directional Movement
 
-RIGHT = "(right|sauce)"
+RIGHT = "(right |sauce)"
 LEFT = "(left|lease)"
 UP = "(up|sauce)"
 DOWN = "(down|dunce)"
