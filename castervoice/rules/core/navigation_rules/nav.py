@@ -148,7 +148,7 @@ class Navigation(MergeRule):
             R(Function(navigation.right_click)),
         "(kick double|double kick)":
             R(Function(navigation.left_click)*Repeat(2)),
-        "squat":
+        "grench":
             R(Function(navigation.left_down)),
         "bench":
             R(Function(navigation.left_up)),

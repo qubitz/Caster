@@ -41,14 +41,14 @@ class JetbrainsRule(MappingRule):
         "select ex": R(Key("c-w")),
         "select ex down": R(Key("cs-w")),
         "select word <n>": R(Key("a-j")) * Repeat(extra="n"),
-        "find file": R(Key("shift, shift")),
+        "fuzzy [finder]": R(Key("shift, shift")),
         "find": R(Key("c-f")),
         "find %s [match] [<n>]" % FORWARD: R(Key("enter")) * Repeat(extra="n"),
         "find %s [match] [<n>]" % BACK: R(Key("s-enter")) * Repeat(extra="n"),
         "replace": R(Key("c-r")),
         "find [in] (all|files)": R(Key("cs-f")),
         "replace [in] (all|files)": R(Key("cs-r")),
-        "go [to line] [<n>]": R(Key("c-g/%s" % DELAY) + Text("%(n)s") + Key("enter")),
+        "go [to line] <n>": R(Key("c-g/%s" % DELAY) + Text("%(n)s") + Key("enter")),
         "implement (%s|%s)" % (method, methods): R(Key("c-i")),
         "override %s" % method: R(Key("c-o")),
         "run config": R(Key("as-f10")),
@@ -72,6 +72,9 @@ class JetbrainsRule(MappingRule):
         "debug": R(Key("s-f9")),
         "redo [<n>]": R(Key("cs-z")) * Repeat(extra="n"),
         "[show] settings": R(Key("ca-s")),
+        "file new": R(Key("ca-insert")),
+        "generate new": R(Key("a-insert")),
+        "gnarly": R(Key("{/5") + Key("enter")),
 
         # only works if you disable tabs.
         "close pane [<n>]|pane close [<n>]": R(Key("c-f4/%s" % DELAY)) * Repeat(extra="n"),
@@ -86,9 +89,17 @@ class JetbrainsRule(MappingRule):
         "%s constant" % extract: R(Key("ca-c")) * Repeat(extra="n"),
         "%s (param|parameter)" % extract: R(Key("ca-p")) * Repeat(extra="n"),
 
+        # unit tests
+        "test rerun": R(Key("c-;") + Key("t")),
+        "test run all": R(Key("c-;") + Key("l")),
+        "test run selected": R(Key("c-;") + Key("r")),
+
         # window navigation
         "focus editor": R(Key("escape")),
         "go [to] project": R(Key("a-1")),
+        "go [to] test": R(Key("a-8")),
+        "go [to] structure": R(Key("a-7")),
+        "go [to] (when | win | window) <n>": R(Key("a-%(n)s")),
         "[toggle] (term|terminal)": R(Key("a-f12")),
 
         # must be bound manually below this point

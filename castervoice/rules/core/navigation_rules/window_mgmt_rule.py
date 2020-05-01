@@ -35,6 +35,9 @@ class WindowManagementRule(MappingRule):
             R(Function(virtual_desktops.move_current_window_to_desktop)),
         "move work [space] <n>":
             R(Function(virtual_desktops.move_current_window_to_desktop, follow=True)),
+        "(dough | window) <n>": Key("w-t:%(n)s/5, enter"),
+        "(tray icon | tray-con) <n>": Key("w-b,left,right:%(n)s"),
+        "(dough | window) search": Key("w-s/5")
     }
 
     extras = [

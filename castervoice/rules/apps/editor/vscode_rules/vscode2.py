@@ -24,8 +24,8 @@ def _find_nth_token(text, n, direction):
 class VSCodeNonCcrRule(MappingRule):
     mapping = {
         # Moving around a file
-        "[(go to | jump | jump to)] line <n>":
-            R(Key("c-g") + Text("%(n)d") + Key("enter")),
+        "go [to line] <n>":
+            R(Key("c-g/%s" % "20") + Text("%(n)d") + Key("enter")),
         "<action> [line] <ln1> [by <ln2>]":
             R(Function(navigation.action_lines)),
 
@@ -307,6 +307,6 @@ class VSCodeNonCcrRule(MappingRule):
 
 def get_rule():
     details = RuleDetails(name="Visual Studio Code",
-                          executable="code",
+                          executable="Code",
                           title="Visual Studio Code")
     return VSCodeNonCcrRule, details

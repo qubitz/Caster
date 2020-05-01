@@ -1,4 +1,4 @@
-from dragonfly import Dictation, MappingRule
+from dragonfly import Dictation, Repeat, MappingRule
 
 from castervoice.lib.actions import Key, Text
 
@@ -17,12 +17,12 @@ class IERule(MappingRule):
             R(Key("a-f, w, t")),
         "(show | file | folder) properties":
             R(Key("a-enter")),
-        "get up":
-            R(Key("a-up")),
+        "get up [<n>]":
+            R(Key("a-up")) * Repeat(extra="n"),
         "get back":
-            R(Key("a-left")),
+            R(Key("a-left")) * Repeat(extra="n"),
         "get forward":
-            R(Key("a-right")),
+            R(Key("a-right")) * Repeat(extra="n"),
         "search [<text>]":
             R(Key("a-d, tab:1") + Text("%(text)s")),
         "(navigation | nav | left) pane":

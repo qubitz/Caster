@@ -13,12 +13,12 @@ class CSharp(MergeRule):
 
     mapping = {
         SymbolSpecs.IF:
-            R(Key("i, f, lparen, rparen, leftbrace, enter,up,left")),
+            R(Key("if")),
         SymbolSpecs.ELSE:
-            R(Key("e, l, s, e, leftbrace, enter")),
+            R(Key("else")),
         #
         SymbolSpecs.SWITCH:
-            R(Text("switch(){\ncase : break;\ndefault: break;") + Key("up,up,left,left")),
+            R(Text("switch")),
         SymbolSpecs.CASE:
             R(Text("case :") + Key("left")),
         SymbolSpecs.BREAK:
@@ -27,20 +27,20 @@ class CSharp(MergeRule):
             R(Text("default: ")),
         #
         SymbolSpecs.DO_LOOP:
-            R(Text("do {}") + Key("left, enter:2")),
+            R(Text("do")),
         SymbolSpecs.WHILE_LOOP:
-            R(Text("while ()") + Key("left")),
+            R(Text("while")),
         SymbolSpecs.FOR_LOOP:
-            R(Text("for (int i=0; i<TOKEN; i++)")),
+            R(Text("for")),
         SymbolSpecs.FOR_EACH_LOOP:
-            R(Text("foreach (TOKEN in Collection)")),
+            R(Text("foreach")),
         #
         SymbolSpecs.TO_INTEGER:
-            R(Text("Convert.ToInt32()") + Key("left")),
+            R(Text("int.Parse()") + Key("left")),
         SymbolSpecs.TO_FLOAT:
-            R(Text("Convert.ToDouble()") + Key("left")),
+            R(Text("float.Parse()") + Key("left")),
         SymbolSpecs.TO_STRING:
-            R(Text("Convert.ToString()") + Key("left")),
+            R(Text("string.Parse()") + Key("left")),
         #
         SymbolSpecs.AND:
             R(Text("&&")),
@@ -54,12 +54,12 @@ class CSharp(MergeRule):
 
         #
         SymbolSpecs.FUNCTION:
-            R(Text("TOKEN TOKEN(){}") + Key("left")),
+            R(Text("(){}") + Key("left, left, left")),
         SymbolSpecs.CLASS:
-            R(Text("class TOKEN{}") + Key("left")),
+            R(Text("class ")),
         #
         SymbolSpecs.COMMENT:
-            R(Text("//")),
+            R(Text("// ")),
         SymbolSpecs.LONG_COMMENT:
             R(Text("/**/") + Key("left, left")),
         #
@@ -67,7 +67,7 @@ class CSharp(MergeRule):
             R(Text("null")),
         #
         SymbolSpecs.RETURN:
-            R(Text("return")),
+            R(Text("return ")),
         #
         SymbolSpecs.TRUE:
             R(Text("true")),
@@ -76,35 +76,37 @@ class CSharp(MergeRule):
 
         # C# specific
         "using":
-            R(Text("using")),
+            R(Text("using ")),
         "enum":
-            R(Text("enum TOKEN {}") + Key("left")),
+            R(Text("enum ")),
         "struct":
-            R(Text("struct TOKEN {}") + Key("left")),
+            R(Text("struct ")),
         "interface":
-            R(Text("interface TOKEN {}") + Key("left")),
+            R(Text("interface ")),
         "public":
             R(Text("public ")),
+        "internal":
+            R(Text("internal ")),
+        "protected":
+            R(Text("protected ")),
         "private":
             R(Text("private ")),
         "static":
             R(Text("static ")),
-        "internal":
-            R(Text("internal ")),
+        "void":
+            R(Text("void ")),
+        "read-only":
+            R(Text("readonly ")),
         "cast integer":
             R(Text("(int)") + Key("left")),
         "cast double":
             R(Text("(double)") + Key("left")),
         "constant":
-            R(Text("const")),
-        "array":
-            R(Mimic("brackets")),
-        "list":
-            R(Text("List<>") + Key("left")),
-        "var":
-            R(Text("var TOKEN = TOKEN;")),
+            R(Text("const ")),
+        "variable":
+            R(Text("var ")),
         "(lambda|goes to)":
-            R(Text("=>")),
+            R(Text(" => ")),
         "new new":
             R(Text("new ")),
         "integer":
@@ -113,12 +115,12 @@ class CSharp(MergeRule):
             R(Text("double ")),
         "character":
             R(Text("char ")),
-        "big integer":
-            R(Text("Integer")),
+        "boolean":
+            R(Text("bool ")),
         "string":
             R(Text("string ")),
-        "ternary":
-            R(Text("()?t:f") + (Key("left")*5)),
+        "assign":
+            R(Text(" = ")),
     }
 
     extras = []

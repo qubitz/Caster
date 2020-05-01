@@ -1,13 +1,31 @@
+import time
 from dragonfly import Repeat, Pause, Function, Choice, MappingRule
 
 from castervoice.lib.actions import Key, Mouse, Text
-
+from castervoice.rules.core.navigation_rules import navigation_support
 from castervoice.lib.merge.additions import IntegerRefST
 from castervoice.lib.ctrl.mgr.rule_details import RuleDetails
 from castervoice.lib.merge.state.short import R
 
-from castervoice.lib import github_automation
+from castervoice.lib import github_automation, navigation, utilities
 from castervoice.lib.temporary import Store, Retrieve
+
+
+def snap(direction, direction2, nnavi500):
+    navigation.curse(direction, direction2, nnavi500, 1)
+    time.sleep(0.3)
+    navigation.curse(opposite(direction), opposite(direction2), nnavi500, 0)
+
+
+def opposite(direction):
+    switcher = {
+        "left": "right",
+        "right": "left",
+        "up": "down",
+        "down": "up"
+    }
+    return switcher.get(direction, "")
+
 
 class ChromeRule(MappingRule):
     mapping = {
@@ -121,6 +139,8 @@ class ChromeRule(MappingRule):
             R(Key("a-f/20, l, e/15, enter")),
         "more tools":
             R(Key("a-f/5, l")),
+        "snap <direction> [<direction2>] <nnavi500>":
+            R(Function(snap))
     }
     extras = [
         Choice("nth", {
@@ -134,9 +154,12 @@ class ChromeRule(MappingRule):
                 "eighth": "8",
             }),
         IntegerRefST("n", 1, 100),
-        IntegerRefST("m", 1, 10)
+        IntegerRefST("m", 1, 10),
+        IntegerRefST("nnavi500", 1, 500),
+        navigation_support.get_direction_choice("direction"),
+        navigation_support.get_direction_choice("direction2")
     ]
-    defaults = {"n": 1, "m":"", "nth": ""}
+    defaults = {"n": 1, "m":"", "nth": "", "direction2": ""}
 
 
 def get_rule():

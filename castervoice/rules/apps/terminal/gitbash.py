@@ -28,8 +28,10 @@ class GitBashRule(MappingRule):
             R(Key("%s, ;, space, %s" % (GIT_ADD_ALL, GIT_COMMIT))),
         "(git|get) status":
             R(Key("g, i, t, space, s, t, a, t, u, s")),
-        "(git|get) commit":
+        "(git|get) commit short":
             R(Key(GIT_COMMIT)),
+        "(git|get) commit":
+            R(Text("git commit ")),
         "(git|get) bug fix commit <n>":
             R(Mimic("get", "commit") + Text("fixes #%(n)d ") + Key("backspace")),
         "(git|get) reference commit <n>":
@@ -48,14 +50,20 @@ class GitBashRule(MappingRule):
             R(Text("git fetch ")),
         "(git|get) push":
             R(Text("git push ")),
+        "(git|get) push force":
+            R(Text("git push -f ")),
+        "(git|get) push gentle":
+            R(Text("git push --force-with-lease")),
         "(git|get) pull":
             R(Text("git pull ")),
+        "(git|get) rebase":
+            R(Text("git rebase ")),
         "CD up":
             R(Text("cd ..")),
         "CD":
             R(Text("cd ")),
         "list":
-            R(Text("ls")),
+            R(Text("ls ")),
         "make directory":
             R(Text("mkdir ")),
         "undo [last] commit | (git|get) reset soft head":
@@ -74,14 +82,22 @@ class GitBashRule(MappingRule):
             R(Text("gitk -- PATH")),
         "(git|get) visualize all":
             R(Text("gitk --all")),
+        "(git|get) history":
+            R(Text("git ls")),
+        "(git|get) log":
+            R(Text("git log --pretty=oneline ")),
+        "(git|get) reset":
+            R(Text("git reset ")),
         "(git|get) stash":
-            R(Text("git stash")),
+            R(Text("git stash ")),
+        "(git|get) diff":
+            R(Text("git diff ")),
         "(git|get) stash apply [<n>]":
             R(Text("git stash apply") + Function(_apply)),
         "(git|get) stash list":
             R(Text("git stash list")),
         "(git|get) stash branch":
-            R(Text("git stash branch NAME")),
+            R(Text("git stash branch ")),
         "(git|get) cherry pick":
             R(Text("git cherry-pick ")),
         "(git|get) (abort cherry pick | cherry pick abort)":
@@ -116,7 +132,8 @@ _executables = [
     "idea",
     "idea64",
     "studio64",
-    "pycharm"
+    "pycharm",
+    "rider64"
 ]
 
 
