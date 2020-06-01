@@ -134,7 +134,8 @@ class NavigationNon(MappingRule):
         "direction2": "",
         "dokick": 0,
         "text": "",
-        "wm": 2
+        "wm": 2,
+        "time_in_seconds": 0.1
     }
 
 

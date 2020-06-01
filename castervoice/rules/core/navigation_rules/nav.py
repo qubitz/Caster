@@ -176,6 +176,12 @@ class Navigation(MergeRule):
             R(Key("cs-left:%(nnavi500)s")),
         "flitch [<nnavi500>]":
             R(Key("cs-right:%(nnavi500)s")),
+        "floppy [<nnavi10>]":
+            R(Key("control:down, tab/10:%(nnavi10)d")),
+        "sloppy [<nnavi10>]":
+            R(Key("control:down, shift:down, tab/10:%(nnavi10)d, shift:up")),
+        "flop":
+            R(Key("control:up")),
         "<modifier> <button_dictionary_500> [<nnavi500>]":
             R(Key("%(modifier)s%(button_dictionary_500)s")*Repeat(extra='nnavi500'),
               rdescript="press modifier keys plus buttons from button_dictionary_500"),
@@ -249,7 +255,6 @@ class Navigation(MergeRule):
     modifier_choice_object = Choice("modifier", {
             "(control | fly)": "c-", #TODO: make DRY
             "(shift | shin)": "s-",
-            "alt": "a-",
             "(control shift | queue)": "cs-",
             "control alt": "ca-",
             "(shift alt | alt shift)": "sa-",

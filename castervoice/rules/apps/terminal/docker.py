@@ -1,19 +1,18 @@
-from dragonfly import MappingRule, Choice
+from dragonfly import MappingRule, Choice, Function
 
 from castervoice.lib.ctrl.mgr.rule_details import RuleDetails
-from castervoice.rules.apps.vocabs import vocab_support
+from castervoice.rules.apps.terminal import command_support
+from castervoice.lib import commandline
 from castervoice.lib.actions import Key, Text
 from castervoice.lib.merge.state.short import R
 
 
 class DockerCommandRule(MappingRule):
-
     mapping = {
-        "(docker|doctor) <command> [<shock>]": R(Text("docker %(command)s ") + Key("%(shock)s")),
-        "(docker|doctor) <cmd> [<shock>]": R(Text("docker %(cmd)s ") + Key("%(shock)s")),
+        "(docker|doctor) <argument> [<shock>]": R(Function(commandline.input, command="docker")),
     }
 
-    docker_verbose_commands = [
+    verbose_args = command_support.mirrored([
         "attach",
         "build",
         "commit",
@@ -48,28 +47,27 @@ class DockerCommandRule(MappingRule):
         "update",
         "version",
         "wait"
-    ]
+    ])
+    args = {
+        "base": "",
+        "copy": "cp",
+        "execute": "exec",
+        "list": "ps",
+        "remove [container[s]]": "rm",
+        "remove image[s]": "rmi"
+    }
+    args.update(verbose_args)
 
     extras = [
-        Choice("command", vocab_support.map_to_mirror(docker_verbose_commands)),
-        Choice("cmd", {
-            "base": "",
-
-            "copy": "cp",
-            "execute": "exec",
-            "list": "ps",
-            "remove [container[s]]": "rm",
-            "remove image[s]": "rmi",
-        }),
+        Choice("argument", args),
         Choice("shock", {
-            "shock": "enter"
+            "shock": "true"
         })
     ]
     defaults = {
-        "shock": ""
+        "shock": "false"
     }
 
 
 def get_rule():
     return DockerCommandRule, RuleDetails(name="Docker Commands")
-

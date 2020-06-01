@@ -63,9 +63,6 @@ class ChromeRule(MappingRule):
             R(Key("c-g/20")) * Repeat(extra="n"),
         "find (back|prev|prior|previous) [match] [<n>]":
             R(Key("cs-g/20")) * Repeat(extra="n"),
-        # requires an extension in some browsers such as chrome
-        "[toggle] caret browsing":
-            R(Key("f7")),
         "[go] home [page]":
             R(Key("a-home")),
         "[show] history":
@@ -78,8 +75,10 @@ class ChromeRule(MappingRule):
             R(Key("c-d")),
         "bookmark all [tabs]":
             R(Key("cs-d")),
-       "[show] bookmarks":
+        "[show] bookmarks":
             R(Key("cs-o")),
+        "[toggle] bookmark bar":
+            R(Key("cs-b")),
         "[toggle] full screen":
             R(Key("f11")),
         "(show|view) page source":
@@ -120,8 +119,6 @@ class ChromeRule(MappingRule):
             R(Key("c-9, cs-tab")),
         "switch focus [<n>]":
             R(Key("f6/20")) * Repeat(extra="n"),
-        "[toggle] bookmark bar":
-            R(Key("cs-b")),
         "switch user":
             R(Key("cs-m")),
         "focus notification":
@@ -140,7 +137,24 @@ class ChromeRule(MappingRule):
         "more tools":
             R(Key("a-f/5, l")),
         "snap <direction> [<direction2>] <nnavi500>":
-            R(Function(snap))
+            R(Function(snap)),
+        # requires an extension in some browsers such as chrome
+        "[toggle] caret browsing":
+            R(Key("f7")),
+        # Requires Holmes chrome extension
+        "Watson":
+            R(Key("as-h")),
+        # Requires LastPass chrome extension
+        "Pass generate":
+            R(Key("a-g")),
+        "Pass fill":
+            R(Key("a-f")),
+        "Pass search":
+            R(Key("a-w")),
+        "Pass next":
+            R(Key("a-pgdown")),
+        "Pass previous":
+            R(Key("a-pgup"))
     }
     extras = [
         Choice("nth", {

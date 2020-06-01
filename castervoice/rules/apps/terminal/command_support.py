@@ -1,5 +1,5 @@
-def map_to_mirror(list):
-    imitation = {}
+def mirrored(list):
+    result = {}
     for e in list:
-        imitation[e] = e
-    return imitation
+        result[e] = e
+    return result
